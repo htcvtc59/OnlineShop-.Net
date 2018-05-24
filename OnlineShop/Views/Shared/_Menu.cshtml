@@ -1,0 +1,35 @@
+﻿@model IEnumerable<object>
+@{
+    List<Model.EntityFramework.Menu> listMenu = Model.ToList()[0] as List<Model.EntityFramework.Menu>;
+    List<Model.EntityFramework.ProductCategory> listProCate = Model.ToList()[1] as List<Model.EntityFramework.ProductCategory>;
+}
+
+<div class="col-sm-12" id="menuPageLarge">
+    <ul>
+        <li>
+            <a href="@Url.Action("Index","Home")">TRANG CHỦ</a>
+        </li>
+        @foreach (var item in listMenu)
+        {
+            <li>
+                <a href="#">@item.Text</a>
+                <ul class="sub-menu">
+                    @foreach (var itemcate in listProCate)
+                    {
+                        if (item.ID == itemcate.ParentID && itemcate.ParentID != 7)
+                        {
+                            <li><a href="@Url.Action("CategoryPro","Product",new {idcatepro=@itemcate.ID })">@itemcate.Name</a></li>
+
+                        }
+                        if (item.ID == itemcate.ParentID && itemcate.Name.Contains("Tin tức") && itemcate.ParentID == 7)
+                        {
+                            <li><a href="@Url.Action("Index","News")">@itemcate.Name</a></li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+
+
+    </ul>
+</div>

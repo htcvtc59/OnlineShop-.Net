@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var slides = (List<Model.EntityFramework.Slide>)ViewBag.slides;
+    var listnewpro = (List<Model.EntityFramework.Product>)ViewBag.newproduct;
+    var popularpro  = (List<Model.EntityFramework.Product>)ViewBag.popularpro;
+
+    var listContent = (List<Model.EntityFramework.Content>)ViewBag.newscon;
+
+}
+@model IEnumerable<object>
+@{
+    List<Model.EntityFramework.Menu> listMenu = Model.ToList()[0] as List<Model.EntityFramework.Menu>;
+    List<Model.EntityFramework.ProductCategory> listProCate = Model.ToList()[1] as List<Model.EntityFramework.ProductCategory>;
+}
+@section jsCus{
+    <script>
+        $('#btnSearchkey').click(function() {
+            $('.contentHome').removeClass("show").addClass("hide");
+        })
+    </script>
+<link href="/Assets/Client/css/listpro.css" rel="stylesheet" />
+<link href="/Assets/Client/css/news.css" rel="stylesheet" />
+  
+}
+<div class="row" id="searchResult">
+@Html.Action("SearchListPro", "Search", new { keyword = "", dropKey = "" })
+</div>
+
+<div class="row show contentHome" id="contentLarge">
+    
+    <div class="col-sm-3">
+        <div class="itempopular">Bán Chạy</div>
+        <div class="ipopular">
+            @foreach (var item in popularpro)
+            {
+                <span>
+                    <img src="@item.Images" />
+                    <a href="san-pham-con/@item.MetaTitle-@item.ID"><p>@item.Name</p></a>
+                    <p>@string.Format("{0:C}", item.Price).Replace(",00", "")</p>
+                </span>
+            }
+        </div>
+        <div class="itempopular">Mới Cập Nhật</div>
+        <div class="ipopular">
+            @foreach (var item in listnewpro)
+            {
+                <span>
+                    <img src="@item.Images" />
+                    <a href="san-pham-con/@item.MetaTitle-@item.ID"><p>@item.Name</p></a>
+                    <p>@string.Format("{0:C}", item.Price).Replace(",00", "")</p>
+                </span>
+            }
+
+        </div>
+
+        <!--News-->
+        <div class="newsupitem">Tin mới</div>
+        <div class="inewsup">
+            @foreach (var item in listContent)
+            {
+                <div>
+                    <img src="@item.Images" width="60" height="60" />
+                    <a href="@Url.Action("DetailNewsContent","News",new {@iddetailconn=item.ID})"><p>@item.Name</p></a>
+
+                    <span class="glyphicon glyphicon-calendar">@item.CreatedDate.Value.ToString("dd/MM/yyyy")</span>
+                </div>
+            }
+
+        </div>
+
+    </div>
+    <div class="col-sm-9">
+        <div id="slidemain">
+            <ul class="rslides">
+                @foreach (var item in slides)
+                {
+                    <li>
+                        <embed src="@item.Image" alt="@item.Description">
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!--Product-->
+        @{ var i = 0;}
+        @foreach (var item in listMenu)
+        {
+
+            <div class="categoryLarge">
+                <ul>
+                    @foreach (var itemc in listProCate)
+                    {
+                        if (item.ID == itemc.ParentID)
+                        {
+                            <li><a href="#" id="btnProCate" data-id="@itemc.ID">@Ajax.ActionLink(itemc.Name, "ProductWithItem", "Home", new { @idcatei = itemc.ID }, new AjaxOptions()
+                                                                          {
+                                                                              UpdateTargetId = "productSlide_"+item.ID,
+                                                                              InsertionMode = InsertionMode.Replace
+
+                                                                          }) </a></li>
+                        }
+                    }
+                </ul>
+            </div>
+
+             <!--Item Product-->
+            <div class="slider1 proSlide_@item.ID" id="productSlide_@item.ID">
+                @{ Html.RenderAction("_ProductCategory", "Product", new { idcateit = item.ID }); }
+
+            </div>
+            
+            i++;
+
+            { Html.RenderAction("_Ads", "Product", new { idc = i }); }
+        }
+
+    </div>
+</div>

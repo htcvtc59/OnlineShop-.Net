@@ -1,0 +1,48 @@
+﻿
+@model OnlineShop.Models.RegisterAcc
+
+
+<form class="form-horizontal" method="post" action="">
+
+@using (Html.BeginForm("_Register", "Account", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+    <div class="form-group ">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-male"></i></div>
+            @Html.TextBoxFor(model => model.RRealName, new { @class = "form-control"
+           , @name = "register_fullname", @placeholder = "Tên của bạn", @required = "required", @value = "" })
+        </div>
+    </div>
+    <div class="form-group ">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+            @Html.TextBoxFor(model => model.RUserName, new { @class = "form-control"
+           , @name = "register_fullname", @placeholder = "Tên đăng nhập", @required = "required", @value = "" })
+        </div>
+    </div>
+    <div class="form-group ">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+            @Html.TextBoxFor(model => model.REmail, new { @class = "form-control" 
+           , @name = "register_email", @placeholder = "Email", @required = "required", @value = ""})
+        </div>
+    </div>
+    <div class="form-group ">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+            @Html.PasswordFor(model => model.RPassword, new { @class = "form-control" ,@value = ""
+           , @name = "register_password", @placeholder = "Mật khẩu", @required = "required" })
+        </div>
+    </div>
+    <div class="form-group ">
+        <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+            @Html.PasswordFor(model => model.RePassword, new { @class = "form-control", @value = "" 
+           , @name = "register_cpassword", @placeholder = "Nhập lại mật khẩu", @required = "required" })
+        </div>
+    </div>
+    <input type="submit" value="Đăng ký" class="btn btn-success btn-custom">
+}
+</form>

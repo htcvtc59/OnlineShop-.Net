@@ -1,0 +1,14 @@
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\Model.dll.config
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\Model.dll
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\Model.pdb
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\EntityFramework.dll
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\PagedList.dll
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\PagedList.Mvc.dll
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\EntityFramework.xml
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\PagedList.xml
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\bin\Debug\PagedList.Mvc.xml
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\obj\Debug\Model.dll
+C:\Users\MacOS\Documents\Visual Studio 2015\Projects\OnlineShop\Model\obj\Debug\Model.pdb

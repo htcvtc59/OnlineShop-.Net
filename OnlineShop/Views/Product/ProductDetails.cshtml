@@ -1,0 +1,140 @@
+﻿@model Model.EntityFramework.Product
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listnewpro = (List<Model.EntityFramework.Product>)ViewBag.newproduct;
+}
+@section jsCus{
+    <script src="/Assets/Client/js/adminajax.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#addtothecart').click(function () {
+                var quantitydata = $('#datanumbercart').val();
+                var id = $('#addtothecart').data('id');
+                var name = $('#addtothecart').find('h4').text();
+                $.ajax({
+                    async: true,
+                    type: 'POST',
+                    url: '/Cart/AddProToCart',
+                    data: {
+                        idtocart: id,
+                        quantity: quantitydata
+                    },
+                    success: function () {
+                        window.location.href = "/san-pham-con/"+name+"-" + id;
+
+                    }, error: function () {
+
+
+                    }
+
+                });
+
+            });
+
+
+        });
+    </script>
+}
+
+<div class="row" id="contentLarge">
+    <div class="col-sm-12" id="ProductLarge12">
+        <div class="col-sm-9 ">
+            <div class="col-sm-7">
+                <!--Detail Product-->
+                <div id="proZoom">
+                    <div class="slides-container" id="zoomimg">
+                        <img />
+                    </div>
+
+                    <br>
+                    <div class="smallProIcon">
+                        @if (ViewBag.listimage != null)
+                        {
+                            foreach (var item in ViewBag.listimage)
+                            {
+                                <span class="slideitem">
+                                    <img src="@item" />
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-5" id="ProLargecol5">
+                <!--name product-->
+                <div id="nameproduct">
+                    <h4>@Model.Name</h4>
+                </div>
+
+                <div id="protocart">
+                    <h3>@string.Format("{0:C}", Model.Price).Replace(",00", "")</h3>
+                    <div class="onelinep"></div>
+
+                    <div class="input-group input-group-lg quantityproduct">
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger btn-number" data-type="minus" id="btnsub" type="button">
+                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                            </button>
+                        </span>
+
+                        <input id="datanumbercart" name="numberinput" type="text" class="form-control input-number"
+                               value="1" min="1" max="100">
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger btn-number" data-type="plus" id="btnadd" type="button">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <!--Add to cart-->
+                    <div id="addtothecart" data-id="@Model.ID"><h4 class="hide">@Model.MetaTitle</h4>
+                        THÊM VÀO GIỎ
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="col-sm-12">
+
+                <!--Description-->
+                <div id="detailDescription">
+                    <!--<div id="detail1">MÔ TẢ</div>-->
+                    <!--<div id="detail2">THÔNG SỐ KĨ THUẬT</div>-->
+                    <ul>
+                        <li id="detail1">MÔ TẢ</li>
+                        <li id="detail2">
+                            THÔNG SỐ KĨ THUẬT
+                        </li>
+                    </ul>
+                </div>
+                <!--Ajax-->
+                <div id="contentDetailDes">
+                    @{ Html.RenderAction("_DesDetailAjax", "DetailProduct",new { iddes = Model.ID });}
+                </div>
+                <div id="contentDetailConfig">
+                    @{ Html.RenderAction("_ConfigDesAjax", "DetailProduct", new { idconfig = Model.ID });}
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-3" id="ProductLarge2">
+            <div class="itempopular">Mới Cập Nhật</div>
+            <div class="ipopular">
+                @foreach (var item in listnewpro)
+                {
+                    <span>
+                        <img src="@item.Images" />
+                        <a href="san-pham-con/@item.MetaTitle-@item.ID"><p>@item.Name</p></a>
+                        <p>@string.Format("{0:C}", item.Price).Replace(",00", "")</p>
+                    </span>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

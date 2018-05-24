@@ -1,0 +1,14 @@
+﻿@model List<Model.EntityFramework.Content>
+
+@foreach (var item in Model)
+{
+    <div class="contentnews">
+        <img src="@item.Images" height="400" width="100%">
+        <h4>@item.Name</h4>
+        <p>
+            @item.Description
+        </p>
+        <a href="@Url.Action("DetailNewsContent","News",new { iddetailconn=@item.ID})">Đọc thêm <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </div>
+
+}

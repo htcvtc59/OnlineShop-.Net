@@ -1,0 +1,53 @@
+﻿@model IEnumerable<object>
+@{
+    List<Model.EntityFramework.Category> listCategory = Model.ToList()[0] as List<Model.EntityFramework.Category>;
+    List<Model.EntityFramework.Content> listContent = Model.ToList()[1] as List<Model.EntityFramework.Content>;
+}
+@{
+    ViewBag.Title = "Tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section jsCus{
+    <link href="/Assets/Client/css/news.css" rel="stylesheet" />
+
+}
+<div class="row" id="contentLarge">
+    <div class="col-sm-2 col-sm-offset-1">
+        <div class="newsitemcate">Danh mục tin</div>
+        <div class="newsi">
+            @foreach (var item in listCategory)
+            {
+
+                @Ajax.ActionLink(item.Name, "ListCNews", "News",
+           new { @idconn = item.ID }, new AjaxOptions()
+           {
+               UpdateTargetId = "listContentNews",
+               InsertionMode = InsertionMode.Replace
+           }, new { @class = "list-group-item" })
+
+            }
+
+        </div>
+    </div>
+    <div class="col-sm-6" id="listContentNews">
+
+
+    </div>
+    <div class="col-sm-2">
+        <div class="newsupitem">Mới Cập Nhật</div>
+        <div class="inewsup">
+            @foreach (var item in listContent)
+            {
+                <div>
+                    <img src="@item.Images" width="60" height="60" />
+                    <a href="@Url.Action("DetailNewsContent","News",new {@iddetailconn=item.ID})"><p>@item.Name</p></a>
+
+                    <span class="glyphicon glyphicon-calendar">@item.CreatedDate.Value.ToString("dd/MM/yyyy")</span>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

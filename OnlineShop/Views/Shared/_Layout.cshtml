@@ -1,0 +1,201 @@
+﻿@using OnlineShop.Common;
+@using OnlineShop.Models;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AppleStore</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    <link href="~/Assets/Client/css/animate.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/normalize.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&amp;subset=vietnamese" rel="stylesheet">
+    <link href="~/Assets/Client/css/style.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/product.css" rel="stylesheet" />
+    <link href="~/Assets/Client/css/jquery.bxslider.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Assets/Client/js/admin.js"></script>
+    <script src="~/Assets/Client/js/adminajax.js"></script>
+    <script src="~/Assets/Client/js/login.js"></script>
+
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/592bdcb94374a471e7c503f7/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row" id="menuContent">
+            <div id="mainMenuLarge">
+                <!--Login-->
+
+                <div class="col-sm-12" id="loginandRegister">
+
+                    @if (Session[CommonConstants.ACCOUNT_SESSION] == null)
+                    {
+                        <!--Hello-->
+                        <button type="button" class="login btn btn-success" id="btnLogin" data-toggle="modal"
+                                data-target=".bs-example-modal-lg">
+                            Đăng nhập
+                        </button>
+                    }
+                    else
+                    {
+                        var acc = (AccountSession)Session[CommonConstants.ACCOUNT_SESSION];
+
+                        <div class="login" data-toggle="modal"
+                             data-target=".bs-example-modal-lg">
+                            Xin Chào Bạn @acc.Account.RealName
+                            @Html.ActionLink("Thoát", "LogoutAcc", "Account", null, new { @class = "btn btn-info btn-exit" })
+                        </div>
+
+                    }
+
+
+                    <!--Login Form-->
+                    <!--Register Form-->
+
+
+
+                </div>
+
+                <!--Logo Search Cart-->
+                <div class="col-sm-12" id="logoandSearchPro">
+                    <!--Logo-->
+                    <h1 class="col-sm-4"><a href="/" ref="nofollow">Apple Store</a></h1>
+                    <!--Search-->
+                    @{ Html.RenderAction("_Search", "Search");}
+                    
+                    <!--Cart-->
+                    @{Html.RenderAction("_Cart", "Cart");}
+
+                </div>
+                <!--Menu Content-->
+
+                @{Html.RenderAction("_Menu", "Home"); }
+
+            </div>
+        </div>
+
+        <!--Content-->
+        @RenderBody()
+
+        <!--Footer-->
+        <div class="row" id="footerPage">
+            <footer>
+                <div class="footer" id="footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                                <h3> GIỚI THIỆU </h3>
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            Hệ thống bán lẻ chính hãng ,uy tín :
+                                            máy chơi game, điện thoại, máy tính bảng, laptop, đồ chơi kĩ thuật số
+                                        </a>
+                                    </li>
+                                    <li> <a href="#"> GÓP Ý,KHIẾU NẠI</a> </li>
+                                    <li> <a href="#"> Email: htcvtc59@gmai.com </a> </li>
+                                    <li> <a href="#"> Phone: 0979 995 575</a> </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                                <h3> HỖ TRỢ </h3>
+                                <ul>
+                                    <li> <a href="#"> Thương hiệu</a> </li>
+                                    <li> <a href="#"> Tin tức </a> </li>
+                                    <li> <a href="#"> Hướng dẫn mua hàng </a> </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                                <h3> Thông tin </h3>
+                                <ul>
+                                    <li> <a href="#"> Quy định chung </a> </li>
+                                    <li> <a href="#"> Quy định bảo hành </a> </li>
+                                    <li> <a href="#"> Quy định đặt cọc </a> </li>
+                                    <li> <a href="#"> Chính sách giao hàng </a> </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                                <h3> LIÊN HỆ </h3>
+                                <ul>
+                                    <li> <a href="#"> ĐỊA CHỈ:</a> </li>
+                                    <li> <a href="#"> - 92 Pasteur,HN</a> </li>
+                                    <li> <a href="#"> THỜI GIAN LÀM VIỆC: </a> </li>
+                                    <li> <a href="#"> - Các ngày trong tuần: 9h - 20h</a> </li>
+                                    <li> <a href="#"> - Chủ nhật và ngày lễ: 9h - 19h</a> </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 " style="padding-top: 100px;">
+
+                                <ul>
+                                    <li>
+                                        <div class="input-append newsletter-box text-center">
+                                            <input type="text" class="full text-center input-sm" placeholder="Email ">
+                                            <button class="btn  bg-gray btn-success" type="button">Gửi <i class="fa fa-long-arrow-right"> </i> </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="social">
+                                    <li> <a href="#"> <i class=" fa fa-facebook">   </i> </a> </li>
+                                    <li> <a href="#"> <i class="fa fa-twitter">   </i> </a> </li>
+                                    <li> <a href="#"> <i class="fa fa-google-plus">   </i> </a> </li>
+                                    <li> <a href="#"> <i class="fa fa-pinterest">   </i> </a> </li>
+                                    <li> <a href="#"> <i class="fa fa-youtube">   </i> </a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--/.row-->
+                    </div>
+                    <!--/.container-->
+                </div>
+                <!--/.footer-->
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <p class="pull-left"> Copyright © 2017. Apple Store </p>
+                        <div class="pull-right">
+                            <ul class="nav nav-pills payments">
+                                <li><i class="fa fa-cc-visa"></i></li>
+                                <li><i class="fa fa-cc-mastercard"></i></li>
+                                <li><i class="fa fa-cc-amex"></i></li>
+                                <li><i class="fa fa-cc-paypal"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--/.footer-bottom-->
+            </footer>
+
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        </div>
+        <div class="btn-top" href="javascript:void(0);" title="Top" style="display: inline;"></div>
+
+    </div>
+    <script src="~/Assets/Client/js/jquery.zoom.js"></script>
+    <script src="~/Assets/Client/js/jquery.bxslider.min.js"></script>
+    <script src="~/Assets/Client/js/responsiveslides.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="/Assets/Client/js/controllers/cartcontroller.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @RenderSection("jsCus", required: false)
+</body>
+</html>

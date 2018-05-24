@@ -1,0 +1,125 @@
+﻿@model PagedList.IPagedList<Model.EntityFramework.Menu>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    Menu
+}
+@section jsFooter{
+    <script>
+        var user = {
+            init: function () {
+                user.registerEvents();
+            },
+            registerEvents: function () {
+                $('.unblock').off('click').on('click', function (e) {
+                    e.preventDefault();
+                    var btn = $(this);
+                    var id = btn.data('id');
+                    $.ajax({
+                        url: "/Admin/Menu/ChangeStatus",
+                        data: { id: id },
+                        dataType: "json",
+                        type: "POST",
+                        success: function (response) {
+                            console.log(response);
+                            if (response.status == true) {
+                                btn.text('Kích hoạt');
+                            } else {
+                                btn.text('Khóa');
+                            }
+                        }
+                    });
+
+                });
+            }
+        }
+        user.init();
+    </script>
+}
+
+<div class="row">
+    <div class="col-sm-2">
+        @Html.ActionLink("Thêm mới", "Create", "Menu", new { @class = "btn btn-success" })
+    </div>
+    <div class="col-sm-5">
+        @using (Html.BeginForm("Index", "Menu", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-10">
+                        <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control" placeholder="Search">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-info">Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Menu
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nội dung</th>
+                                <th>Đường dẫn</th>
+                                <th>Thứ tự hiển thị</th>
+                                <th>Target</th>
+                                <th>Loại Menu</th>
+                                <th>Trạng thái</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.ID">
+
+                                    <td>@item.ID</td>
+                                    <td>@item.Text</td>
+                                    <td>@item.Link</td>
+                                    <td>@item.DisplayOrder</td>
+                                    <td>@item.Target</td>
+                                    <td>@item.TypeID</td>
+                                    <td><a href="#" class="btn btn-success unblock" data-id="@item.ID">@Html.Raw(item.Status ? "Kích hoạt" : "Khóa")</a></td>
+                                    <td>
+                                        <a href="/Admin/Menu/Edit/@item.ID" class="btn btn-primary">Sửa</a>
+                                        @Ajax.ActionLink("Xóa", "Delete", new { @id = item.ID }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có muốn xóa bản ghi này?",
+                                       OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                       HttpMethod = "Delete"
+
+                                   }, new { @class = "btn btn-danger" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+</div>
+
+
+
+

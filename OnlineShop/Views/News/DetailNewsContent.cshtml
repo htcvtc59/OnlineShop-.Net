@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsCus{
+    <link href="/Assets/Client/css/news.css" rel="stylesheet" />
+
+}
+@model Model.EntityFramework.Content
+
+@MvcHtmlString.Create(Model.Detail)
+

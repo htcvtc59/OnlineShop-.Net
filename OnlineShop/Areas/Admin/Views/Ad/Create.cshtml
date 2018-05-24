@@ -1,0 +1,87 @@
+﻿@model Model.EntityFramework.Ad
+
+@{
+    ViewBag.Title = "Tạo mới quảng cáo";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    Thêm mới quảng cáo
+}
+@section jsFooter{
+    <script>
+        $(document).ready(function () {
+            $('#btnSelectedImage').on('click', function (e) {
+                e.preventDefault();
+                var finder = new CKFinder();
+                finder.selectActionFunction = function (url) {
+                    $('#txtImage').val(url);
+                };
+                finder.popup();
+            })
+        });
+    </script>
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nhập thông tin quảng cáo
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @using (Html.BeginForm("Create", "Ad", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Image)
+                                @Html.TextBoxFor(model => model.Image, new { @class = "form-control", id = "txtImage" })
+                                <button id="btnSelectedImage">Chọn ảnh</button>
+                                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DisplayOrder)
+                                @Html.TextBoxFor(model => model.DisplayOrder, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Link)
+                                @Html.TextBoxFor(model => model.Link, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Description)
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-sm-3" })
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(model => model.Status)
+                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-0 col-sm-12">
+                                    <input type="submit" value="Thêm mới" class="btn btn-default" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

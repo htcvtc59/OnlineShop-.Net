@@ -1,0 +1,31 @@
+﻿@model string
+@{
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        InsertionMode = InsertionMode.Replace
+    };
+}
+
+<div class="col-sm-4 btn-group" id="mainSearchLarge">
+    @using (Ajax.BeginForm("SearchListPro", options))
+    {
+                            <!--Search-->
+        <div class="input-group input-group-lg">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-success btn-group-lg" id="btnSearchkey">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </span>
+            @Html.TextBox("keyword", null, new { @placeholder = "Nhập từ khóa cần tìm...", @class = "form-control" })
+        </div>
+        <span class="input-group">
+            @Html.DropDownList("dropKey", new List<SelectListItem>() {
+                                        new SelectListItem() {Text="Giá",Value="0"},
+                                        new SelectListItem() {Text="Sản phẩm",Value="1" ,Selected=true}
+                                    }, new { @class = "form-control", @style = "width:120px;" })
+        </span>
+    }
+</div>
+
+

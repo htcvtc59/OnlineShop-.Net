@@ -1,0 +1,111 @@
+﻿@model Model.EntityFramework.OrderBy
+
+@{
+    ViewBag.Title = "Cập nhật khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    Cập nhật khách hàng
+}
+@section jsFooter{
+    <script src="/Scripts/moment.min.js"></script>
+    <script src="/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <link href="/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            
+            $('#datetimepicker8').datetimepicker({
+                format: 'YYYY/MM/DD hh:mm:ss',
+                daysOfWeekDisabled: [0, 6],
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+        });
+    </script>
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nhập thông tin khách hàng
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @using (Html.BeginForm("Edit", "OrderBy", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "help-block text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CreatedDate)
+                                <div class='input-group date' id='datetimepicker8'>
+                                    @Html.TextBoxFor(model => model.CreatedDate, new { @class = "form-control",@value=""})
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-calendar">
+                                        </span>
+                                    </span>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "help-block text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerID)
+                                @Html.TextBoxFor(model => model.CustomerID, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "help-block text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ShipName)
+                                @Html.TextBoxFor(model => model.ShipName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ShipName, "", new { @class = "help-block text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ShipMobile)
+                                @Html.TextBoxFor(model => model.ShipMobile, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ShipMobile, "", new { @class = "help-block text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ShipAddress)
+                                @Html.TextBoxFor(model => model.ShipAddress, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ShipAddress, "", new { @class = "help-block text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ShipEmail)
+                                @Html.TextBoxFor(model => model.ShipEmail, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ShipEmail, "", new { @class = "help-block text-danger" })
+                            </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Status, new { @class = "col-sm-3" })
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.Status)
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "help-block text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <input type="submit" value="Cập nhật" class="btn btn-default" />
+                                    </div>
+                                </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

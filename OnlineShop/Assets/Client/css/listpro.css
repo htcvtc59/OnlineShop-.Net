@@ -1,0 +1,53 @@
+#listProLarge {
+   
+}
+
+#deals {
+    display: flex; /* Flex layout so items have equal height  */
+    flex-flow: row wrap; /* Allow items to wrap into multiple lines */
+    text-align:center;
+}
+
+
+.sale-item {
+    display: flex; /* Lay out each item using flex layout */
+    width:181px;
+    margin: 5px;
+    flex-flow: column; /* Lay out item’s contents vertically  */
+    border: 2px solid #e7e3e2;
+}
+
+.sale-item > img {
+    order: -1; /* Shift image before other content (in visual order) */
+    align-self: center; /* Center the image cross-wise (horizontally)         */
+    width: 150px;
+    height: 160px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+.sale-item a{
+    font-size: 16px;
+    text-decoration: none;
+    color: #3c628e;
+    margin: auto;
+    padding: 5px 0px 5px 0px;
+}
+.sale-item a:hover{
+    color: #5488c7;
+}
+.sale-item p{
+    color: #d1472c;
+    font-size: 16px;
+    border-top: 1px solid #d1cfcb;
+    border-bottom: 1px solid #d1cfcb;
+    padding: 0;
+    margin:0 auto;
+}
+
+.sale-item > span {
+    padding: 5px 0px 5px 0px;
+    margin:0 auto; /* Auto top margin pushes button to bottom */
+    cursor: pointer;
+    color: #333849;
+}

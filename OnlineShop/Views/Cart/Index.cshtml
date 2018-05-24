@@ -1,0 +1,72 @@
+﻿@model List<OnlineShop.Models.CartChild>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var total=0;
+}
+@section jsCus{
+<script src="/Assets/Client/js/controllers/cartcontroller.js"></script>
+    }
+
+
+<div class="alert-success" style="height:30px; font-size:20px; line-height:30px; padding-left:10px;">Giỏ hàng</div>
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr class="info">
+                <td>Mã sản phẩm</td>
+                <td>Tên sản phẩm</td>
+                <td>Ảnh sản phẩm</td>
+                <td>Số lượng</td>
+                <td>Đơn giá</td>
+                <td>Thành tiền</td>
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="success">
+                    <td>@item.Product.ID</td>
+                    <td>@item.Product.Name</td>
+                    <td><img src="@item.Product.Images" width="60" /></td>
+                    <td class="col-sm-1">
+                        <input type="text" class="form-control cartquantity" data-id="@item.Product.ID" value="@item.Quantity"/>
+                        <button class="btn btn-success" id="btnUpdate"><span class="fa fa-refresh" aria-hidden="true"></span></button>
+                        <button class="btn btn-danger" id="btnDelete" data-id="@item.Product.ID" ><span class="fa fa-times-circle" aria-hidden="true"></span></button>
+                    </td>
+                    <td>
+                        @string.Format("{0:C}", item.Product.Price.GetValueOrDefault(0)).Replace(",00", "")
+                </td>
+                <td>@string.Format("{0:C}", (item.Product.Price.GetValueOrDefault(0) * item.Quantity)).Replace(",00", "")</td>
+            </tr>
+                 total += (int)(item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                    }
+        </tbody>
+        <tfoot>
+            <tr class="danger">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Tổng cộng</td>
+                <td>@string.Format("{0:C}",total).Replace(",00", "")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <hr />
+    <button class="btn btn-primary col-sm-2 " id="btnContinue">Tiếp tục mua hàng</button>
+    <div class="col-sm-9"></div>
+    <button class="btn btn-primary col-sm-1 " id="btnPayment">Thanh toán</button>
+
+    <div style="height:60px"></div>
+}
+else
+{
+    <div class="alert alert-warning">Không có sản phẩm nào trong giỏ hàng</div>
+    <div style="height:300px"></div>
+}
+
+
